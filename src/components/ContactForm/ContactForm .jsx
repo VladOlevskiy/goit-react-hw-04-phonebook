@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import { Form, Label, Field, Button } from './ContactForm-styled';
 import * as yup from 'yup';
@@ -18,48 +18,46 @@ const initialValues = {
   number: '',
 };
 
-export class ContactForm extends Component {
-  handleSubmit = (values, { resetForm }) => {
-    this.props.onSubmit(values);
+export const ContactForm = ({ onSubmit }) => {
+  const handleSubmit = (values, { resetForm }) => {
+    onSubmit(values);
     resetForm();
   };
 
-  render() {
-    return (
-      <Formik
-        initialValues={initialValues}
-        onSubmit={this.handleSubmit}
-        validationSchema={schema}
-      >
-        <Form>
-          <Label>
-            Name
-            <Field
-              type="text"
-              name="name"
-              placeholder="Enter your name..."
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-            />
-          </Label>
-          <ErrorMessage name="name" component="div" />
-          <Label>
-            Phone
-            <Field
-              type="tel"
-              name="number"
-              placeholder="Enter your tel..."
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-            />
-          </Label>
-          <ErrorMessage name="number" component="div" />
-          <Button type="submit">Add contact</Button>
-        </Form>
-      </Formik>
-    );
-  }
-}
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={schema}
+    >
+      <Form>
+        <Label>
+          Name
+          <Field
+            type="text"
+            name="name"
+            placeholder="Enter your name..."
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        </Label>
+        <ErrorMessage name="name" component="div" />
+        <Label>
+          Phone
+          <Field
+            type="tel"
+            name="number"
+            placeholder="Enter your tel..."
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </Label>
+        <ErrorMessage name="number" component="div" />
+        <Button type="submit">Add contact</Button>
+      </Form>
+    </Formik>
+  );
+};
 
 ContactForm.propTypes = {
   initialValues: PropTypes.shape({
