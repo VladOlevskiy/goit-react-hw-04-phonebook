@@ -15,6 +15,10 @@ export const App = () => {
   });
   const [filter, SetFilter] = useState('');
 
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
   const onSubmit = values => {
     const id = nanoid();
     if (
@@ -39,10 +43,6 @@ export const App = () => {
   const onChange = e => {
     SetFilter(e.currentTarget.value);
   };
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const normalizedFilterSearch = filter.toLowerCase();
 
